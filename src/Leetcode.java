@@ -21,10 +21,33 @@ public class Leetcode {
 		//System.out.println(lc.lengthOfLongestSubstring("dvdf"));
 		//System.out.println(lc.lengthOfLongestSubstring("pwwkew"));
 		
-		System.out.println(lc.reverse(1534236469));
+		//System.out.println(lc.reverse(1534236469));
+		
+		System.out.println(lc.isPalindrome(121));
 	}
 	
-	
+	/**
+	 * »ØÎÄÊı
+	 * @param x
+	 * @return
+	 */
+    public boolean isPalindrome(int x) {
+       int tempx=x;
+        if (x<0) {
+			return false;
+		}
+        int reversedNumber = 0;
+        while (x>0) {
+        	reversedNumber=reversedNumber*10+x%10;
+			x=x/10;
+		}
+        log.debug("reversedNumber=="+reversedNumber+"x==="+x);
+        if (reversedNumber==tempx) {
+        	
+			return true;
+		}
+        return false;
+    }
     public int myAtoi(String str) {
     	
     	int result=0;
