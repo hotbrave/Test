@@ -1,3 +1,4 @@
+package suanfa;
 /**
  * ц╟ещеепР
  * @author Administrator
