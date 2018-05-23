@@ -1,4 +1,4 @@
-package chazhao;
+package suanfa.chazhao;
 
 public class ErFenChaZhao {
 	/**
