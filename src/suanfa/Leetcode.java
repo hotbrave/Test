@@ -24,8 +24,59 @@ public class Leetcode {
 		
 		//System.out.println(lc.reverse(1534236469));
 		
-		System.out.println(lc.isPalindrome(121));
+		//System.out.println(lc.isPalindrome(121));
+		
+		//String[] strArr= {"flower","flow","flight"};
+		String[] strArr= {"flower","flow","fliwht"};
+		System.out.println("aa="+lc.longestCommonPrefix(strArr));
 	}
+	
+	/**
+	 * 最长公共前缀
+	 * ["flower","flow","flight"]  fl
+	 */
+    public String longestCommonPrefix(String[] strs) {
+        String result="";
+        int minlength=0;
+        ArrayList<String[]> arrtemp=new ArrayList<>();
+        for (int i = 0; i < strs.length; i++) {
+			String[] charArr=strs[i].split("");
+			if (i==0) {
+				minlength=charArr.length;
+			}
+			else {
+				if (minlength>charArr.length) {
+					minlength=charArr.length;
+				}
+			}
+			arrtemp.add(charArr);
+		}
+        boolean flag=false;
+        //log.debug(minlength);
+        for (int i = 0; i < minlength; i++) {
+        	for (int j = 0; j < arrtemp.size(); j++) {
+        		if (arrtemp.get(0)[i].equals(arrtemp.get(j)[i])) {
+					flag=true;
+					//log.debug("true");
+				}
+        		else {
+					flag=false;
+					log.debug("false=="+arrtemp.get(0)[i]);
+					//break;
+					return result;
+				}
+				
+			}
+        	if (flag) {
+				result=result+arrtemp.get(0)[i];
+			}
+			
+		}
+
+        
+    	
+    	return result;
+    }
 	
 	/**
 	 * 回文数
