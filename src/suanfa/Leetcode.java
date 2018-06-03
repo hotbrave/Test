@@ -74,7 +74,7 @@ public class Leetcode {
 	}
 	
 	/**
-	 * 最大子序和
+	 * 最大子序和a
 	 * @param nums
 	 * @return
 	 */
