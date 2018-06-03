@@ -12,6 +12,8 @@ import org.apache.log4j.Logger;
 
 public class Leetcode {
 
+	public static int gCount=0;//递归执行次数统计
+	
 	Logger log = Logger.getLogger(Leetcode.class);
 	public static void main(String[] args) {
 		Leetcode lc=new Leetcode();
@@ -59,9 +61,66 @@ public class Leetcode {
 		
 		int[] nums6= {2,3,5};
 		int target3=8;
+		///2,3,5---6   2,3,5--5   2,3,5---3
+		///2,3,5---4 2,3,5---3  2,3,5---1  || 2,3--3  2,3--2  || 2--1
+		///2,3---2  2,3--1  2---1  []||3    2||[]
+		//
 		
-		System.out.println(lc.combinationSum(nums6, target3));
+		//System.out.println(lc.combinationSum(nums6, target3));
+		
+		//int[] nums53= {-2,1,-3,4,-1,2,1,-5,4};
+		int[] nums53= {-57,9,-72,-72,-62,45,-97,24,-39,35,-82,-4,-63,1,-93,42,44,1,-75,-25,-87,-16,9,-59,20,5,-95,-41,4,-30,47,46,78,52,74};
+		System.out.println(lc.maxSubArray(nums53));
 	}
+	
+	/**
+	 * 最大子序和
+	 * @param nums
+	 * @return
+	 */
+	 public int maxSubArray(int[] nums) {
+		 int max=nums[0];
+		 int length=nums.length;
+		 
+		 for (int i = 0; i < nums.length; i++) {
+			max=max+nums[i];
+		}
+		 maxSubArray(nums);
+		 return max;
+	 }
+	
+	
+	/**
+	 * 最大子序和_超时了
+	 * @param nums
+	 * @return
+	 */
+    public int maxSubArray_timeOut(int[] nums) {
+        int max =nums[0];
+        for(int i=0;i<nums.length;i++)
+        {
+            for(int j=0;j<nums.length;j++)
+            {
+                if(i+j<nums.length)
+                {
+
+                    int[] sub_nums = Arrays.copyOfRange(nums, j, j+i+1);
+
+                    int sum=0;
+                    for(int tmp:sub_nums)
+                    {
+                    	sum=sum+tmp;
+                    }
+                    if(sum>max)
+                    {
+                        max=sum;
+                    }
+                }
+
+            }
+        }
+        return max;
+    }
 	
 	/**
 	 * 组合总和 网上的方法
@@ -69,19 +128,24 @@ public class Leetcode {
 	 * @param t
 	 * @return
 	 */
-	 public List<List<Integer>> combinationSum(int[] a, int t) {  
+	 public List<List<Integer>> combinationSum(int[] a, int t) {
+		 gCount++;
 	        List<List<Integer>> list = new ArrayList<List<Integer>>();  
 	        Arrays.sort(a);//数组排序  
 	        //各种特殊情况  
 	        if(a.length == 0 || a[0] > t)  
-	            return list;  
+	        {
+	        	//System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa"+a[0]);
+	        	return list;  
+	        }
 	  
 	        int len = 0;  
 	        boolean isAdd = false;//控制与t相等的数只添加一次  
 	        for(int i = 0; i< a.length;i++){  
 	            if(a[i] == t){  
 	                if(!isAdd){//如果未添加  
-	                    List<Integer> al = new ArrayList<Integer>();  
+	                    List<Integer> al = new ArrayList<Integer>();
+	                    //System.out.println("t================"+t+"gCount==="+gCount);
 	                    al.add(t);  
 	                    list.add(al);  
 	                    isAdd = true;//标记已添加  
@@ -92,20 +156,27 @@ public class Leetcode {
 	        }  
 	        //只存在a[0] < target 或 a[0] > target  
 	        if(a[0] > t)//肯定已没有符合要求的组合  
-	            return list;  
+	        {
+	        	//System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
+	        	return list;  
+	        }
 	        //a[0] < target  
 	          
 	        for(int i = 0; i < len; i++){//循环搜索符合要求的数字组合  
-	            int[] b = Arrays.copyOfRange(a, i, len);//不含>=t数据的新数组  
+	            int[] b = Arrays.copyOfRange(a, i, len);//不含>=t数据的新数组
+	           // System.out.println("i"+i+"==="+Arrays.toString(b)+"t==="+t+"gCount=="+gCount);
 	            if(a[i] > t)//如果a[i]，肯定以后的数据已不符合，返回  
 	                break;  
 	            //相等于已经有了一个值a[0]了      
-	            List<List<Integer>> newList = new ArrayList<List<Integer>>();  
+	            List<List<Integer>> newList = new ArrayList<List<Integer>>();
+	            System.out.println("b==="+Arrays.toString(b)+"t=="+t+"a["+i+"]=="+a[i]+"t-a[i]=="+(t-a[i]));
 	            newList = combinationSum(b,t-a[i]);  
 	            if(newList.size() > 0){//里面有符合要求的数据  
-	                for(int j = 0; j < newList.size();j++){  
+	                for(int j = 0; j < newList.size();j++){
+	                	//System.out.println("a["+i+"]==="+a[i]);
 	                    newList.get(j).add(a[i]);//新返回的各个值添加a[0]  
 	                    Collections.sort(newList.get(j));//排序
+	                    //System.out.println("newList["+j+"]==="+newList.get(j));
 	                    list.add(newList.get(j));//最终添加  
 	                }  
 	            }  
@@ -220,7 +291,7 @@ public class Leetcode {
 						nums[i]=nums[j];
 						nums[j]=temp;
 						Arrays.sort(nums, i+1, nums.length);
-						System.out.println(Arrays.toString(nums));
+						System.out.println(Arrays.toString(nums));//打印数组的方法
 						return;
 					}
 				}
