@@ -3,6 +3,7 @@ package suanfa;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import org.apache.log4j.Logger;
@@ -69,12 +70,271 @@ public class Leetcode {
 		//System.out.println(lc.combinationSum(nums6, target3));
 		
 		//int[] nums53= {-2,1,-3,4,-1,2,1,-5,4};
-		int[] nums53= {-57,9,-72,-72,-62,45,-97,24,-39,35,-82,-4,-63,1,-93,42,44,1,-75,-25,-87,-16,9,-59,20,5,-95,-41,4,-30,47,46,78,52,74};
-		System.out.println(lc.maxSubArray(nums53));
+		//int[] nums53= {-57,9,-72,-72,-62,45,-97,24,-39,35,-82,-4,-63,1,-93,42,44,1,-75,-25,-87,-16,9,-59,20,5,-95,-41,4,-30,47,46,78,52,74};
+		int[] nums53= {-1};
+		//System.out.println(lc.MaxSubSequence(nums53));
+		
+		HashMap<Integer, Long> map=new HashMap<>();
+		
+		int dtgh=100;//动态规划
+		//System.out.println(lc.getClimbingWays(dtgh));
+		//System.out.println(lc.getClimbingWays2(dtgh,map));
+		//System.out.println(lc.getClimbingWays3(dtgh));
+		
+		//System.out.println(lc.lengthOfLastWord("hell world"));
+		
+		//System.out.println(lc.climbStairs(dtgh,map)+"=my");
+		//int[] prices= {7,1,5,3,6,4};
+		//int[] prices= {7,6,4,3,1};
+		//System.out.println(lc.maxProfit(prices));
+		
+		//String s="a man, a plan, a canal: Panama";
+		//System.out.println(lc.isPalindrome(s));
+		
+		//String s5="abcda";
+		
+		String s5="dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd";
+		System.out.println("a===="+lc.longestPalindrome(s5));
+	}
+	
+	
+	/**
+	 * 最长回文子串
+	 * @param s
+	 * @return
+	 */
+    public String longestPalindrome(String s) {
+    	if (s.length()==1) {
+			return s;
+		}
+        String result="";
+        int max=0;
+        char[] tempStr=s.toCharArray();
+        for (int i = 0; i < tempStr.length; i++) {
+			for (int j = i+1; j < tempStr.length; j++) {
+				//System.out.println(tempStr[j]);
+				if (tempStr[j]==tempStr[i]) {
+					
+					boolean flag=true;
+					char[] temp2Str=(s.substring(i, j+1)).toCharArray();
+					//System.out.println(tempStr[j]+"--"+String.copyValueOf(temp2Str));
+			        for (int k = 0; k < temp2Str.length; k++) {
+						if (!(temp2Str[k]==temp2Str[temp2Str.length-k-1])) {
+							flag=false;
+							break;
+						}
+					}
+			        //System.out.println(flag+""+temp2Str.length+"---"+max);
+			        if (flag&&temp2Str.length>max) {
+			        	max=temp2Str.length;
+			        	result=String.copyValueOf(temp2Str);
+					}
+					
+				}
+				
+				
+				
+			}
+		}
+        if (max==0) {
+			return ""+tempStr[0];
+		}
+    	return result;
+    }
+	
+	/**
+	 * 验证回文串
+	 * @param s
+	 * @return
+	 */
+    public boolean isPalindrome(String s) {
+    	boolean flag=true;
+    	s.trim();
+    	System.out.println(s);
+        String[] arrStr=s.split("");
+        for (int i = 0; i < arrStr.length; i++) {
+			if (!arrStr[i].equals(arrStr[arrStr.length-i])) {
+				flag=false;
+				break;
+			}
+		}
+    	
+    	return flag;
+    }
+	
+	/**
+	 * 121买卖股票的最佳时机
+	 * @param prices
+	 * @return
+	 */
+    public int maxProfit(int[] prices) {
+    	
+        int result=0;
+        for (int i = 0; i < prices.length; i++) {
+			for (int j = i+1; j < prices.length; j++) {
+				if (prices[j]-prices[i]>result) {
+					//System.out.println("pricesj["+j+"]=="+prices[j]+"  pricesi["+i+"]==="+prices[i]);
+					result=prices[j]-prices[i];
+				}
+			}
+		}
+        return result;
+    }
+	
+	/**
+	 * 我的爬楼梯
+	 * @param n
+	 * @param cache
+	 * @return
+	 */
+    public Long climbStairs(int n,HashMap<Integer, Long> cache) {
+        Long result=0l;
+        if (n==1) {
+			return 1l;
+		}
+        if (n==2) {
+			return 2l;
+		}
+        if (n==3) {
+			return 3l;
+		}
+        if (cache.containsKey(n)) {
+			return cache.get(n);
+		}
+        else {
+        	result=climbStairs(n-1,cache)+climbStairs(n-2,cache);
+        	cache.put(n, result);
+		}
+        
+        
+        return result;
+    }
+
+ 
+	
+	
+	/**
+	 * 最后一个单词的长度58
+	 * @param s
+	 * @return
+	 */
+    public int lengthOfLastWord(String s) {
+        int result=0;
+        String[] temp= s.split(" ");
+        if (temp.length>0) {
+        	result=temp[temp.length-1].length();
+		}
+        
+        return result;
+    }
+	
+	/**
+	 * 动态规划3
+	 * @param n
+	 * @return
+	 */
+	long getClimbingWays3(int n)
+	{
+		if (n<1) {
+			return 0;
+		}
+		if (n==1) {
+			return 1;
+		}
+		if (n==2) {
+			return 2;
+		}
+		
+		long a=1;
+		long b=2;
+		long temp=0;
+		
+		for (int i = 3; i <= n; i++) {
+			temp=a+b;
+			a=b;
+			b=temp;
+		}
+		return temp;
 	}
 	
 	/**
-	 * 最大子序和ab
+	 * 动态规划2
+	 * @param n
+	 * @param map
+	 * @return
+	 */
+	long getClimbingWays2(int n,HashMap<Integer, Long> map)
+	{
+		if (n<1) {
+			return 0;
+		}
+		if (n==1) {
+			return 1;
+		}
+		if (n==2) {
+			return 2;
+		}
+		if (map.containsKey(n)) {
+			return map.get(n);
+		}
+		else {
+			
+			long value= getClimbingWays2(n-1,map)+getClimbingWays2(n-2,map);
+			map.put(n, value);
+			return value;
+		}
+		
+	}
+	
+	/**
+	 * 动态规划1
+	 * @param n
+	 * @return
+	 */
+	long getClimbingWays(int n)
+	{
+		if (n<1) {
+			return 0;
+		}
+		if (n==1) {
+			return 1;
+		}
+		if (n==2) {
+			return 2;
+		}
+
+			
+		return getClimbingWays(n-1)+getClimbingWays(n-2);
+
+			 
+		
+		
+	}
+	
+	/**
+	 * 最大子序和，网上的方法,全是负数时有问题
+	 * @param A
+	 * @return
+	 */
+    static int MaxSubSequence( int nums[])    
+    {    
+        int N=nums.length;  
+        int ThisSum,MaxSum,j;    
+        ThisSum = MaxSum =0;    
+        for(j = 0;j < N;j++)    
+        {    
+            ThisSum += nums[j];    
+                
+            if(ThisSum > MaxSum)    
+                MaxSum = ThisSum;    
+            else if(ThisSum < 0)    
+                ThisSum = 0;     
+        }    
+        return MaxSum;     
+    } 
+	
+	/**
+	 * 最大子序和abc
 	 * @param nums
 	 * @return
 	 */
