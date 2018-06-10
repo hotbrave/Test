@@ -6,6 +6,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.log4j.Logger;
 
 
@@ -93,10 +95,82 @@ public class Leetcode {
 		
 		//String s5="abcda";
 		
-		String s5="dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd";
-		System.out.println("a===="+lc.longestPalindrome(s5));
+		//String s5="dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd";
+		//System.out.println("a===="+lc.longestPalindrome(s5));
+		
+		//String s387 = "loveleetcode";
+		//String s387="cc";
+		//String s387="aadadaad";
+		//System.out.println(""+lc.firstUniqChar(s387));
+		
+		String s451="Aabb";
+		System.out.println(lc.frequencySort(s451));
+		
 	}
 	
+	
+	/**
+	 * 451. ¸ù¾İ×Ö·û³öÏÖÆµÂÊÅÅĞò
+	 * @param s
+	 * @return
+	 */
+    public String frequencySort(String s) {
+        String result="";
+        HashMap<Character, Integer> countMap=new HashMap<>();
+        char[] tempcharArr=s.toCharArray();
+        for (int i = 0; i < tempcharArr.length; i++) {
+			if (!countMap.containsKey(tempcharArr[i])) {
+				countMap.put(tempcharArr[i], 1);
+			}
+			else {
+				countMap.replace(tempcharArr[i], countMap.get(tempcharArr[i])+1);
+			}
+		}
+        //ÕâÀïÒª¶ÔhashmapµÄvalueÅÅĞò
+ 
+        System.out.println(countMap);
+        return result;
+    }
+	
+	   public int countSegments(String s) {
+		   if (s.length()==0) {
+			return 0;
+		}
+	        String[] tempstr=s.split(" ");
+	        		return tempstr.length;
+	    }
+	
+	/**
+	 * 387. ×Ö·û´®ÖĞµÄµÚÒ»¸öÎ¨Ò»×Ö·û
+	 * @param s
+	 * @return
+	 */
+    public int firstUniqChar(String s) {
+        int result=-1;
+        char[] tempchar=s.toCharArray();
+
+        ArrayList<Character> temparr=new ArrayList<>();
+        for(int i=0;i<tempchar.length;i++)
+        {
+        	if (temparr.contains(tempchar[i])) {
+				continue;
+			}
+        	boolean flag=false;
+        	for(int j=i+1;j<tempchar.length;j++)
+        	{
+        		if(tempchar[i]==tempchar[j])
+        		{
+        			flag=true;
+        			temparr.add(tempchar[j]);
+        			break;
+        		}
+        	}
+        	if (!flag) {
+				return i;
+			}
+        }
+        return result;
+    }
 	
 	/**
 	 * ×î³¤»ØÎÄ×Ó´®
